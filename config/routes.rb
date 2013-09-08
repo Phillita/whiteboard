@@ -1,4 +1,8 @@
 Whiteboard::Application.routes.draw do
+  resources :rows
+
+  resources :columns
+
   root :to => "boards#index"
 
   resources :boards

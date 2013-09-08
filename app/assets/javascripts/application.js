@@ -15,4 +15,5 @@
 //= require kinetic-v4.6.0.min
 //= require turbolinks
 //= require bootstrap
+//= require jquery_nested_form
 //= require_tree .

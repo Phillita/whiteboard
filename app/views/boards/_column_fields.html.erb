@@ -1,0 +1,13 @@
+<div class="field">
+	<%= f.input :label, :wrapper => :prepend, :label => false do %>
+    <%= content_tag :span, "Column Name", :class => "add-on" %>
+    <%= f.input_field :label %>
+  <% end %>
+  <%= f.input :order, :wrapper => :prepend, :label => false do %>
+    <%= content_tag :span, "Sort Order", :class => "add-on" %>
+    <%= f.input_field :order %>
+  <% end %>
+</div>
+<div class="controls">
+	<p><%= f.link_to_remove "Remove Column", class: "btn btn-primary" %></p>
+</div>

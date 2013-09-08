@@ -1,0 +1,13 @@
+<%= simple_form_for(@column) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :board_id %>
+    <%= f.input :order %>
+    <%= f.input :label %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

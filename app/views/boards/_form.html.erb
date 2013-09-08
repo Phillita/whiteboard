@@ -1,4 +1,4 @@
-<%= simple_form_for(@board, html: { class: 'form-horizontal' }) do |f| %>
+<%= simple_nested_form_for(@board, html: { class: 'form-horizontal' }) do |f| %>
   <% if @board.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@board.errors.count, "error") %> prohibited this board from being saved:</h2>
@@ -11,9 +11,30 @@
     </div>
   <% end %>
 
+  <h2>Board</h2>
   <div class="field">
-    <%= f.input :name, input_html: { class: "span6" }, hint: "This is the name of your board." %>
+    <%= f.input :name, :wrapper => :prepend, :label => false do %>
+      <%= content_tag :span, "Name", :class => "add-on" %>
+      <%= f.input_field :name %>
+    <% end %>
   </div>
+
+  <h2>Columns</h2>
+  <div id="columns">
+    <%= f.fields_for :columns %>
+  </div>
+  <div class="controls">
+    <p><%= f.link_to_add "Add a Column", :columns, "data-target" => "#columns", class: "btn btn-primary" %></p>
+  </div>
+
+  <h2>Rows</h2>
+  <div id="rows">
+    <%= f.fields_for :rows %>
+  </div>
+  <div class="controls">
+    <p><%= f.link_to_add "Add a Row", :rows, "data-target" => "#rows", class: "btn btn-primary" %></p>
+  </div>
+
   <div class="actions">
     <div class="controls">  
       <%= f.button :submit, class: 'btn-primary' %>

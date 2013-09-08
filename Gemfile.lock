@@ -78,6 +78,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.7.8)
     mysql2 (0.3.13)
+    nested_form (0.3.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -155,6 +156,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   mysql2
+  nested_form
   rails (= 4.0.0)
   sass-rails (~> 4.0.0)
   sdoc
