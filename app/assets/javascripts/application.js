@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require kinetic-v4.6.0.min
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
