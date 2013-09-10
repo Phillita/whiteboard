@@ -2,7 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#labels {
+	width: 100%;
+	height: auto;
+}
+
 #container {
-	width: 80%;
-	height: 50%;
+	width: 90%;
+	height: 80%;
 }
