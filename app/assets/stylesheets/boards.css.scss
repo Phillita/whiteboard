@@ -9,5 +9,54 @@
 
 #container {
 	width: 90%;
-	height: 80%;
+	height: 100%;
+  float: right;
+}
+
+#columns {
+  margin-left: 10%;
+  width: 100%;
+  height: auto;
+  clear: both;
+}
+
+#rows {
+  width: 10%;
+}
+
+.column_header {
+	float: left;
+  text-align: center;
+}
+
+.col_size_1 {
+  width: 80%;
+}
+.col_size_2 {
+  width: 40%;
+}
+.col_size_3 {
+  width: 26.67%;
+}
+.col_size_4 {
+  width: 20%;
+}
+.col_size_5 {
+  width: 18%;
+}
+
+.row_header {
+  text-align: center;
+  float: left;
+  clear: left;
+  width: 100%;
+  display: table;
+
+	h4 {
+	//  -webkit-transform: rotate(-90deg); 
+  //  -moz-transform: rotate(-90deg);
+  //  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    display: table-cell;
+    vertical-align: middle;
+	} 
 }

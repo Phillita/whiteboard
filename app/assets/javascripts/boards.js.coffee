@@ -3,11 +3,15 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-  if $('#container').length > 0
-    document.addEventListener("page:change", draw);
+  setup_container()
+  document.addEventListener("page:load", setup_container)
+  
+@setup_container = ->
+  draw()
+  resize_table()
+  window.onresize = (e) ->
     draw()
-    window.onresize = (e) ->
-      draw()
+    resize_table()
 
 @draw = () ->
   if $('#container').length > 0
@@ -66,18 +70,6 @@ jQuery ->
     #   fill: 'white'
     # }))
 
-    # horizontalline = new Kinetic.Line({
-    #   points: [{x:0,y:$('#container').width()/4},{x:$('#container').width(),y:$('#container').width()/4}],
-    #   stroke: 'black',
-    #   strokeWidth: 2,
-    # })
-
-    # verticalline = new Kinetic.Line({
-    #   points: [{x:$('#container').width()/2,y:0},{x:$('#container').width()/2,y:$('#container').width()/2}],
-    #   stroke: 'black',
-    #   strokeWidth: 2,
-    # })
-
     # Stage border
     rect = new Kinetic.Rect({
       x: 0,
@@ -93,7 +85,6 @@ jQuery ->
     layer.add(rect)
     layer.add(row_line) for row_line in row_lines
     layer.add(column_line) for column_line in column_lines
-    # .add(horizontalline).add(verticalline)
     #.add(tooltip)
 
     # add the layer to the stage
@@ -101,3 +92,19 @@ jQuery ->
 
 @find_column_row_width_height = (stage_width_height, cols_rows) ->
   stage_width_height/cols_rows
+
+@resize_table = () ->
+  if $("#container").length > 0
+    init_height = $("#container").height()
+    rows = $('#container').data("rows")
+    $(".row_header").each(
+      () ->
+        $(this).height(init_height/rows)
+    )
+
+    init_width = $("#container").width()
+    cols = $('#container').data("columns")
+    $(".column_header").each(
+      () ->
+        $(this).width(init_width/cols)
+    )
