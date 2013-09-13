@@ -1,4 +1,4 @@
-<%= simple_nested_form_for(@board, html: { class: 'form-horizontal' }) do |f| %>
+<%= simple_nested_form_for(@board) do |f| %>
   <% if @board.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@board.errors.count, "error") %> prohibited this board from being saved:</h2>
@@ -11,34 +11,27 @@
     </div>
   <% end %>
 
-  <h2>Board</h2>
-  <div class="field">
-    <%= f.input :name, :wrapper => :prepend, :label => false do %>
-      <%= content_tag :span, "Name", :class => "add-on" %>
-      <%= f.input_field :name %>
-    <% end %>
-  </div>
+  <h2>Board Options</h2>
+  <%= f.input :name, :wrapper => :prepend, :label => false do %>
+    <%= content_tag :span, "Name", :class => "add-on" %>
+    <%= f.input_field :name %>
+  <% end %>
 
-  <h2>Columns</h2>
-  <div id="columns">
+  <h2>Columns and Options</h2>
+  <div id="board_columns">
     <%= f.fields_for :columns %>
   </div>
-  <div class="controls">
-    <p><%= f.link_to_add "Add a Column", :columns, "data-target" => "#columns", class: "btn btn-primary" %></p>
-  </div>
+  
 
-  <h2>Rows</h2>
-  <div id="rows">
+  <h2>Rows and Options</h2>
+  <div id="board_rows">
     <%= f.fields_for :rows %>
   </div>
-  <div class="controls">
-    <p><%= f.link_to_add "Add a Row", :rows, "data-target" => "#rows", class: "btn btn-primary" %></p>
-  </div>
 
-  <div class="actions">
-    <div class="controls">  
-      <%= f.button :submit, class: 'btn-primary' %>
-      <%= submit_tag 'Reset', type: :reset, class: "btn btn-danger" %>
-    </div>
+  <div class="form-actions">  
+    <%= f.button :submit, class: 'btn-primary' %>
+    <%= f.link_to_add "Add a Row", :rows, "data-target" => "#board_rows", class: "btn btn-primary" %>
+    <%= f.link_to_add "Add a Column", :columns, "data-target" => "#board_columns", class: "btn btn-primary" %>
+    <%= submit_tag 'Reset', type: :reset, class: "btn btn-danger" %>
   </div>
 <% end %>

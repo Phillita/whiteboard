@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Story:</strong>
+  <%= @ticket.story %>
+</p>
+
+<p>
+  <strong>Pithy tag:</strong>
+  <%= @ticket.pithy_tag %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @ticket.description %>
+</p>
+
+<p>
+  <strong>Requirements points:</strong>
+  <%= @ticket.requirements_points %>
+</p>
+
+<p>
+  <strong>Development points:</strong>
+  <%= @ticket.development_points %>
+</p>
+
+<p>
+  <strong>Board:</strong>
+  <%= @ticket.board_id %>
+</p>
+
+<p>
+  <strong>Column:</strong>
+  <%= @ticket.column_id %>
+</p>
+
+<p>
+  <strong>Row:</strong>
+  <%= @ticket.row_id %>
+</p>
+
+<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<%= link_to 'Back', tickets_path %>
