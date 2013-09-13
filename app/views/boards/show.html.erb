@@ -4,13 +4,13 @@
 
 <div id="labels">
 	<div id="columns">
-		<% @board.columns.order(:order).each do |c| %>
+		<% @columns.order(:order).each do |c| %>
 			<h4 class="column_header "><%= c.label %></h4>
 		<% end %>
 	</div>
-	<div id="container" data-columns="<%= @board.columns.count %>" data-rows="<%= @board.rows.count %>"></div>
+	<div id="container" data-columns="<%= @columns.count %>" data-rows="<%= @rows.count %>"></div>
   <div id="rows">
-		<% @board.rows.order(:order).each do |r| %>
+		<% @rows.order(:order).each do |r| %>
 			<div class="row_header"><h4><%= r.label %></h4></div>
 		<% end %>
 	</div>

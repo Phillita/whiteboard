@@ -10,6 +10,9 @@ class BoardsController < ApplicationController
   # GET /boards/1
   # GET /boards/1.json
   def show
+    @columns = @board.columns
+    @rows = @board.rows
+    @tickets = @board.tickets.to_json
   end
 
   # GET /boards/new
