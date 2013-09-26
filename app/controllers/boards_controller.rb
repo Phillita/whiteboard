@@ -12,7 +12,6 @@ class BoardsController < ApplicationController
   def show
     @columns = @board.columns
     @rows = @board.rows
-    @tickets = @board.tickets.to_json
   end
 
   # GET /boards/new

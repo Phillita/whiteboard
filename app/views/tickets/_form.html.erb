@@ -26,12 +26,12 @@
       <%#= content_tag :span, "Board", :class => "add-on" %>
       <%= f.input :board_id %>
     <% end %>
-    <%#= f.input :pithy_tag, :wrapper => :prepend, :label => false do %>
-      <%#= f.input :column_id %>
-    <%# end %>
-    <%#= f.input :pithy_tag, :wrapper => :prepend, :label => false do %>
-      <%#= f.input :row_id %>
-    <%# end %>
+    <%= f.input :pithy_tag, :wrapper => :prepend, :label => false do %>
+      <%= f.input :column_id %>
+    <% end %>
+    <%= f.input :pithy_tag, :wrapper => :prepend, :label => false do %>
+      <%= f.input :row_id %>
+    <% end %>
   </div>
 
   <div class="form-actions">

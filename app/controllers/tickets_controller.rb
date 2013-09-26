@@ -4,7 +4,18 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    if params[:board_id].present?
+      @tickets = Ticket.where(board_id: params[:board_id])
+    else
+      @tickets = Ticket.all
+    end
+
+    respond_to do |format|
+      format.html 
+      format.json do
+        render :json => @tickets.to_json(:include => { :column => { :only => :order }, :row => { :only => :order }})
+      end
+    end
   end
 
   # GET /tickets/1

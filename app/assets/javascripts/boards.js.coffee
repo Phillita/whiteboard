@@ -31,7 +31,15 @@ jQuery ->
 
     row_lines = []
     column_lines = []
-    
+    ticket_images = []
+    grid = []
+    imageObj = new Image()
+
+    grid[num] = [] for num in [0..rows]
+    for arr in grid 
+      do ->
+        arr[n] = 0 for n in [0..cols]
+
     row_lines[num] = new Kinetic.Line({
       points: [{x:0,y:(row_height*(num+1))},{x:stage.getWidth(),y:(row_height*(num+1))}],
       stroke: 'black',
@@ -83,12 +91,60 @@ jQuery ->
 
     # add the shape to the layer
     layer.add(rect)
-    layer.add(row_line) for row_line in row_lines
-    layer.add(column_line) for column_line in column_lines
-    #.add(tooltip)
 
-    # add the layer to the stage
-    stage.add(layer)
+    # add rows
+    layer.add(row_line) for row_line in row_lines
+
+    # add columns
+    layer.add(column_line) for column_line in column_lines
+
+    $.ajax document.URL + '/tickets.json',
+        type: 'GET'
+        dataType: 'html'
+        async: false
+        error: (jqXHR, textStatus, errorThrown) ->
+          $('body').prepend "Failed to process tickets."
+        success: (data, textStatus, jqXHR) ->
+          tickets = JSON.parse data
+          imageObj.onload = ->
+            # for ticket_number in [0..tickets.length-1 ]
+            #   do ->
+            #     t = tickets[ticket_number]
+            #     grid[t.row.order-1][t.column.order-1] = grid[t.row.order-1][t.column.order-1] + 1
+                
+            #     ticket_images[ticket_number] = new Kinetic.Image({
+            #       x: (column_width * t.column.order) + (grid[t.row.order-1][t.column.order-1]*5),
+            #       y: (row_height * t.row.order) + (grid[t.row.order-1][t.column.order-1]*5),
+            #       image: imageObj,
+            #       width: 30,
+            #       height: 30
+            #     })
+
+            # layer.add(ticket) for ticket in ticket_images
+
+            # stage.add(layer)
+            set_up_tickets(grid, tickets, ticket_images, column_width, row_height, imageObj, layer, stage)
+
+    imageObj.src = $('#container').data('stickey')
+
+@set_up_tickets = (grid, tickets, ticket_images, column_width, row_height, imageObj, layer, stage) ->
+  for ticket_number in [0..tickets.length-1 ]
+    do ->
+      t = tickets[ticket_number]
+      row_offset = Math.floor(grid[t.row.order-1][t.column.order-1]/6.0)
+      col_offset = grid[t.row.order-1][t.column.order-1] - (row_offset*6)
+      ticket_images[ticket_number] = new Kinetic.Image({
+        x: (column_width * t.column.order) + (col_offset*(column_width/6.0)),
+        y: (row_height * t.row.order) + (row_offset * (row_height/3.0)),
+        image: imageObj,
+        width: column_width/6.0,
+        height: row_height/3.0
+      })
+      grid[t.row.order-1][t.column.order-1] = grid[t.row.order-1][t.column.order-1] + 1
+
+  layer.add(ticket) for ticket in ticket_images
+
+  stage.add(layer)
 
 @find_column_row_width_height = (stage_width_height, cols_rows) ->
   stage_width_height/cols_rows
