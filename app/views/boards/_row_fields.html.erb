@@ -2,9 +2,6 @@
   <%= content_tag :span, "Title", :class => "add-on" %>
   <%= f.input_field :label %>
 <% end %>
-<%= f.input :order, :wrapper => :prepend, :label => false do %>
-  <%= f.input :order %>
-<% end %>
 <div class="form-actions">
 	<%= f.link_to_remove "Remove Row", class: "btn btn-primary" %>
 </div>

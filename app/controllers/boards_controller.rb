@@ -71,6 +71,6 @@ class BoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def board_params
-      params.require(:board).permit(:name, columns_attributes: [:id, :label, :order, :_destroy], rows_attributes: [:id, :label, :order, :_destroy])
+      params.require(:board).permit(:name, columns_attributes: [:id, :label, :_destroy], rows_attributes: [:id, :label, :_destroy])
     end
 end

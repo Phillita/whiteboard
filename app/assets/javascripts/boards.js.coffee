@@ -128,19 +128,20 @@ jQuery ->
     imageObj.src = $('#container').data('stickey')
 
 @set_up_tickets = (grid, tickets, ticket_images, column_width, row_height, imageObj, layer, stage) ->
-  for ticket_number in [0..tickets.length-1 ]
-    do ->
-      t = tickets[ticket_number]
-      row_offset = Math.floor(grid[t.row.order-1][t.column.order-1]/6.0)
-      col_offset = grid[t.row.order-1][t.column.order-1] - (row_offset*6)
-      ticket_images[ticket_number] = new Kinetic.Image({
-        x: (column_width * t.column.order) + (col_offset*(column_width/6.0)),
-        y: (row_height * t.row.order) + (row_offset * (row_height/3.0)),
-        image: imageObj,
-        width: column_width/6.0,
-        height: row_height/3.0
-      })
-      grid[t.row.order-1][t.column.order-1] = grid[t.row.order-1][t.column.order-1] + 1
+  if tickets.length > 0
+    for ticket_number in [0..tickets.length-1 ]
+      do ->
+        t = tickets[ticket_number]
+        row_offset = Math.floor(grid[t.row.order-1][t.column.order-1]/6.0)
+        col_offset = grid[t.row.order-1][t.column.order-1] - (row_offset*6)
+        ticket_images[ticket_number] = new Kinetic.Image({
+          x: (column_width * t.column.order) + (col_offset*(column_width/6.0)),
+          y: (row_height * t.row.order) + (row_offset * (row_height/3.0)),
+          image: imageObj,
+          width: column_width/6.0,
+          height: row_height/3.0
+        })
+        grid[t.row.order-1][t.column.order-1] = grid[t.row.order-1][t.column.order-1] + 1
 
   layer.add(ticket) for ticket in ticket_images
 
