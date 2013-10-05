@@ -6,10 +6,18 @@ Whiteboard::Application.routes.draw do
 
   root :to => "boards#index"
 
-  resources :tickets
+  resources :tickets do
+    member do
+      post :update_cols_and_rows
+    end
+  end
   
   resources :boards do
-    resources :tickets
+    resources :tickets do
+      member do
+        post :update_cols_and_rows
+      end
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

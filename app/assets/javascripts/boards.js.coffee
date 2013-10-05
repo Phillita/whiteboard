@@ -107,22 +107,6 @@ jQuery ->
         success: (data, textStatus, jqXHR) ->
           tickets = JSON.parse data
           imageObj.onload = ->
-            # for ticket_number in [0..tickets.length-1 ]
-            #   do ->
-            #     t = tickets[ticket_number]
-            #     grid[t.row.order-1][t.column.order-1] = grid[t.row.order-1][t.column.order-1] + 1
-                
-            #     ticket_images[ticket_number] = new Kinetic.Image({
-            #       x: (column_width * t.column.order) + (grid[t.row.order-1][t.column.order-1]*5),
-            #       y: (row_height * t.row.order) + (grid[t.row.order-1][t.column.order-1]*5),
-            #       image: imageObj,
-            #       width: 30,
-            #       height: 30
-            #     })
-
-            # layer.add(ticket) for ticket in ticket_images
-
-            # stage.add(layer)
             set_up_tickets(grid, tickets, ticket_images, column_width, row_height, imageObj, layer, stage)
 
     imageObj.src = $('#container').data('stickey')
@@ -132,20 +116,54 @@ jQuery ->
     for ticket_number in [0..tickets.length-1 ]
       do ->
         t = tickets[ticket_number]
-        row_offset = Math.floor(grid[t.row.order-1][t.column.order-1]/6.0)
-        col_offset = grid[t.row.order-1][t.column.order-1] - (row_offset*6)
+        row_offset = Math.floor(grid[t.row.order][t.column.order]/6.0)
+        col_offset = grid[t.row.order][t.column.order] - (row_offset*6)
         ticket_images[ticket_number] = new Kinetic.Image({
           x: (column_width * t.column.order) + (col_offset*(column_width/6.0)),
           y: (row_height * t.row.order) + (row_offset * (row_height/3.0)),
           image: imageObj,
           width: column_width/6.0,
-          height: row_height/3.0 
+          height: row_height/3.0,
+          draggable: true
         })
-        grid[t.row.order-1][t.column.order-1] = grid[t.row.order-1][t.column.order-1] + 1
+        grid[t.row.order][t.column.order] = grid[t.row.order][t.column.order] + 1
 
-        ticket_images[ticket_number].on('click', ->
+        ticket_images[ticket_number].on 'click', ->
           window.location = document.domain + "/tickets/" + t.id
-        )
+        ticket_images[ticket_number].on 'dragend', ->
+          c = parseInt this.getX()/column_width
+          r = parseInt this.getY()/row_height
+          $.ajax document.URL + '/tickets/' + t.id + '/update_cols_and_rows?row=' + r + '&column=' + c,
+            type: 'POST'
+            timeout:8000
+            dataType: 'json'
+            async: true
+            error: (jqXHR, textStatus, errorThrown) ->
+              if $("#status").length
+                $("#status-msg")[0].innerHTML = "Failed to update ticket."
+                $("#status").toggleClass( "alert-error", true )
+                $("#status").toggleClass( "alert-success", false )
+                $("#status").show
+              else
+                $('body').prepend '<div id="status" class="alert alert-error">
+                  <a class="close" data-dismiss="alert">&#215;</a>
+                  <div id="status-msg">Failed to update ticket ' + t.id + '.</div>
+                </div>'
+            success: (data, textStatus, jqXHR) ->
+              if $("#status").length
+                $("#status-msg")[0].innerHTML = 'Successfully updated ticket ' + data.id + '!'
+                $("#status").toggleClass( "alert-error", false )
+                $("#status").toggleClass( "alert-success", true )
+                $("#status").show
+              else
+                $('body').prepend '<div id="status" class="alert alert-success">
+                  <a class="close" data-dismiss="alert">&#215;</a>
+                  <div id="status-msg">Successfully updated ticket ' + data.id + '!</div>
+                </div>'
+        ticket_images[ticket_number].on 'mouseover', ->
+          document.body.style.cursor = 'pointer'
+        ticket_images[ticket_number].on 'mouseout', ->
+          document.body.style.cursor = 'default'
 
   layer.add(ticket) for ticket in ticket_images
 

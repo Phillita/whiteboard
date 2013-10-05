@@ -4,6 +4,6 @@ class Column < ActiveRecord::Base
   before_save :add_sequential_order
 
   def add_sequential_order
-    self.order = self.board.columns.count + 1
+    self.order = self.board.columns.count
   end
 end

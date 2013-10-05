@@ -72,6 +72,21 @@ class TicketsController < ApplicationController
     end
   end
 
+  # POST /tickets/id/update_cols_and_rows
+  def update_cols_and_rows
+    ticket = Ticket.find(params["id"])
+    ticket.row = ticket.board.rows.where(order: params["row"]).first
+    ticket.column = ticket.board.columns.where(order: params["column"]).first
+    respond_to do |format|
+      if ticket.save
+        format.json { render json: ticket, :msg=>"Ticket was successfully updated." }
+      else
+          format.json  { render json: ticket.errors, :status => :unprocessable_entity }
+      end
+    end
+    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
