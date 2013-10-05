@@ -139,9 +139,13 @@ jQuery ->
           y: (row_height * t.row.order) + (row_offset * (row_height/3.0)),
           image: imageObj,
           width: column_width/6.0,
-          height: row_height/3.0
+          height: row_height/3.0 
         })
         grid[t.row.order-1][t.column.order-1] = grid[t.row.order-1][t.column.order-1] + 1
+
+        ticket_images[ticket_number].on('click', ->
+          window.location = document.domain + "/tickets/" + t.id
+        )
 
   layer.add(ticket) for ticket in ticket_images
 

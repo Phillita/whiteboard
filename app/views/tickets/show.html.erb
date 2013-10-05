@@ -27,18 +27,18 @@
 
 <p>
   <strong>Board:</strong>
-  <%= @ticket.board_id %>
+  <%= link_to @ticket.board.name, @ticket.board %>
 </p>
 
 <p>
-  <strong>Column:</strong>
-  <%= @ticket.column_id %>
+  <strong>Current Column:</strong>
+  <%= @ticket.column.label %>
 </p>
 
 <p>
-  <strong>Row:</strong>
-  <%= @ticket.row_id %>
+  <strong>Current Row:</strong>
+  <%= @ticket.row.label %>
 </p>
 
 <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<%= link_to 'All Tickets', tickets_path %>
