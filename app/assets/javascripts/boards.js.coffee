@@ -7,13 +7,22 @@ jQuery ->
   document.addEventListener("page:load", setup_container)
   
 @setup_container = ->
-  draw()
+  tickets = []
+  $.ajax document.URL + '/tickets.json',
+    type: 'GET'
+    dataType: 'html'
+    async: false
+    error: (jqXHR, textStatus, errorThrown) ->
+      $('body').prepend "Failed to process tickets."
+    success: (data, textStatus, jqXHR) ->
+      tickets = JSON.parse data
+  draw(tickets)
   resize_table()
   window.onresize = (e) ->
-    draw()
+    draw(tickets)
     resize_table()
 
-@draw = () ->
+@draw = (tickets) ->
   if $('#container').length > 0
     cols = $('#container').data("columns")
     rows = $('#container').data("rows")
@@ -98,16 +107,19 @@ jQuery ->
     # add columns
     layer.add(column_line) for column_line in column_lines
 
-    $.ajax document.URL + '/tickets.json',
-        type: 'GET'
-        dataType: 'html'
-        async: false
-        error: (jqXHR, textStatus, errorThrown) ->
-          $('body').prepend "Failed to process tickets."
-        success: (data, textStatus, jqXHR) ->
-          tickets = JSON.parse data
-          imageObj.onload = ->
-            set_up_tickets(grid, tickets, ticket_images, column_width, row_height, imageObj, layer, stage)
+    # $.ajax document.URL + '/tickets.json',
+    #   type: 'GET'
+    #   dataType: 'html'
+    #   async: false
+    #   error: (jqXHR, textStatus, errorThrown) ->
+    #     $('body').prepend "Failed to process tickets."
+    #   success: (data, textStatus, jqXHR) ->
+    #     tickets = JSON.parse data
+    #     imageObj.onload = ->
+    #       set_up_tickets(grid, tickets, ticket_images, column_width, row_height, imageObj, layer, stage)
+
+    imageObj.onload = ->
+      set_up_tickets(grid, tickets, ticket_images, column_width, row_height, imageObj, layer, stage)
 
     imageObj.src = $('#container').data('stickey')
 
