@@ -141,12 +141,12 @@ jQuery ->
         # drag method to update ticket
         ticket_groups[ticket_number].on 'dragend', ->
           update_ticket_cols_and_rows(this, t, column_width, row_height)
-
         # pointer styles
         ticket_groups[ticket_number].on 'mouseover', ->
-          document.body.style.cursor = 'pointer'
+          # document.body.style.cursor = 'pointer'
+          $("#ticket-story").text(t.story)
         ticket_groups[ticket_number].on 'mouseout', ->
-          document.body.style.cursor = 'default'
+          # document.body.style.cursor = 'default'
   layer.add(group) for group in ticket_groups
 
   stage.add(layer)
