@@ -13,6 +13,8 @@ Whiteboard::Application.routes.draw do
   end
   
   resources :boards do
+    resources :columns
+    resources :rows
     resources :tickets do
       member do
         post :update_cols_and_rows

@@ -1,11 +1,22 @@
 class ColumnsController < ApplicationController
   # before_action :set_column, only: [:show, :edit, :update, :destroy]
 
-  # # GET /columns
-  # # GET /columns.json
-  # def index
-  #   @columns = Column.all
-  # end
+  # GET /columns
+  # GET /columns.json
+  def index
+    if params[:board_id].present?
+      @columns = Column.where(board_id: params[:board_id])
+    else
+      @columns = Column.all
+    end
+
+    respond_to do |format|
+      format.html 
+      format.json do
+        render :json => @columns.to_json()
+      end
+    end
+  end
 
   # # GET /columns/1
   # # GET /columns/1.json

@@ -13,14 +13,13 @@
       <th>Row</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @tickets.each do |ticket| %>
       <tr>
-        <td><%= ticket.story %></td>
+        <td><%= link_to ticket.story, ticket %></td>
         <td><%= ticket.pithy_tag %></td>
         <td><%= ticket.description %></td>
         <td><%= ticket.requirements_points %></td>
@@ -28,9 +27,8 @@
         <td><%= ticket.board_id %></td>
         <td><%= ticket.column_id %></td>
         <td><%= ticket.row_id %></td>
-        <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to raw("<i class=\"fa fa-edit\"></i>"), edit_ticket_path(ticket) %></td>
+        <td><%= link_to raw("<i class=\"fa fa-trash-o\"></i>"), ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

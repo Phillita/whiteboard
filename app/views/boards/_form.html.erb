@@ -1,6 +1,6 @@
 <%= simple_nested_form_for(@board) do |f| %>
   <% if @board.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="span8">
       <h2><%= pluralize(@board.errors.count, "error") %> prohibited this board from being saved:</h2>
 
       <ul>
@@ -11,27 +11,42 @@
     </div>
   <% end %>
 
-  <h2>Board Options</h2>
-  <%= f.input :name, :wrapper => :prepend, :label => false do %>
-    <%= content_tag :span, "Name", :class => "add-on" %>
-    <%= f.input_field :name %>
-  <% end %>
+  <div class="span10">
+    <h2>Board Options</h2>
+    <%= f.input :name, :wrapper => :prepend, :label => false do %>
+      <%= content_tag :span, "Name", :class => "add-on" %>
+      <%= f.input_field :name %>
+    <% end %>
+  </div>
 
-  <h2>Columns and Options</h2>
-  <div id="board_columns">
-    <%= f.fields_for :columns %>
+  <div class="span4 well">
+    <div class="span2">
+      <h3>Columns</h3>
+    </div>
+    <div class="span1">
+      <h3><%= f.link_to_add raw("<i class=\"fa fa-plus-square\"></i>"), :columns, "data-target" => "#board_columns", class: "btn btn-primary" %></h3>
+    </div>
+    <div id="board_columns">
+      <%= f.fields_for :columns %>
+    </div>
   </div>
   
-
-  <h2>Rows and Options</h2>
-  <div id="board_rows">
-    <%= f.fields_for :rows %>
+  <div class="span4 well">
+    <div class="span2">
+      <h3>Rows</h3>
+    </div>
+    <div class="span1">
+      <h3><%= f.link_to_add raw("<i class=\"fa fa-plus-square\"></i>"), :rows, "data-target" => "#board_rows", class: "btn btn-primary" %></h3>
+    </div>
+    <div id="board_rows">
+      <%= f.fields_for :rows %>
+    </div>
   </div>
 
-  <div class="form-actions">  
-    <%= f.button :submit, class: 'btn-primary' %>
-    <%= f.link_to_add "Add a Row", :rows, "data-target" => "#board_rows", class: "btn btn-primary" %>
-    <%= f.link_to_add "Add a Column", :columns, "data-target" => "#board_columns", class: "btn btn-primary" %>
-    <%= submit_tag 'Reset', type: :reset, class: "btn btn-danger" %>
+  <div class="span10">
+    <div class="form-actions">  
+      <%= f.button :submit, class: 'btn-primary' %>
+      <%= submit_tag 'Reset', type: :reset, class: "btn btn-danger" %>
+    </div>
   </div>
 <% end %>

@@ -1,11 +1,22 @@
 class RowsController < ApplicationController
   # before_action :set_row, only: [:show, :edit, :update, :destroy]
 
-  # # GET /rows
-  # # GET /rows.json
-  # def index
-  #   @rows = Row.all
-  # end
+  # GET /rows
+  # GET /rows.json
+  def index
+    if params[:board_id].present?
+      @rows = Row.where(board_id: params[:board_id])
+    else
+      @rows = Row.all
+    end
+
+    respond_to do |format|
+      format.html 
+      format.json do
+        render :json => @rows.to_json()
+      end
+    end
+  end
 
   # # GET /rows/1
   # # GET /rows/1.json

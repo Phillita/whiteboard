@@ -40,5 +40,5 @@
   <%= @ticket.row.label %>
 </p>
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<%= link_to raw("<i class=\"fa fa-edit\"></i>"), edit_ticket_path(@ticket) %> |
 <%= link_to 'All Tickets', tickets_path %>

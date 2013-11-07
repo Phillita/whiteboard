@@ -2,7 +2,8 @@
   <div class="container">
     <h1><%= @board.name %></h1> 
   </div>
-  <%= link_to 'Edit', edit_board_path(@board) %> |
+  <%= link_to raw("<i class=\"fa fa-edit\"></i>"), edit_board_path(@board) %> |
+  <%= link_to raw("<i class=\"fa fa-trash-o\"></i>"), @board, method: :delete, data: { confirm: 'Are you sure?' } %> |
   <%= link_to 'Back', boards_path %>
 </div>
 

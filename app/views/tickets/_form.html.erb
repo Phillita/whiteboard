@@ -1,40 +1,38 @@
 <%= simple_form_for(@ticket) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :story, :wrapper => :prepend, :label => false do %>
-      <%= content_tag :span, "Story", :class => "add-on" %>
-      <%= f.input_field :story %>
-    <% end %>
-    <%= f.input :pithy_tag, :wrapper => :prepend, :label => false do %>
-      <%= content_tag :span, "Short Title", :class => "add-on" %>
-      <%= f.input_field :pithy_tag %>
-    <% end %>
-    <%= f.input :description, :wrapper => :prepend, :label => false do %>
-      <%= content_tag :span, "Full Description", :class => "add-on" %>
-      <%= f.input_field :description %>
-    <% end %>
-    <%= f.input :requirements_points, :wrapper => :prepend, :label => false do %>
-      <%#= content_tag :span, "Requirements Points", :class => "add-on" %>
-      <%= f.input :requirements_points %>
-    <% end %>
-    <%= f.input :development_points, :wrapper => :prepend, :label => false do %>
-      <%#= content_tag :span, "Development Points", :class => "add-on" %>
-      <%= f.input :development_points %>
-    <% end %>
-    <%= f.input :board_id, :wrapper => :prepend, :label => false do %>
-      <%#= content_tag :span, "Board", :class => "add-on" %>
-      <%= f.input :board_id %>
-    <% end %>
-    <%= f.input :pithy_tag, :wrapper => :prepend, :label => false do %>
-      <%= f.input :column_id %>
-    <% end %>
-    <%= f.input :pithy_tag, :wrapper => :prepend, :label => false do %>
-      <%= f.input :row_id %>
-    <% end %>
+  <div id="tickets-form" class="form-inputs">
+    <div class="span4">
+      <%= f.input :story, :input_html => { :class => "span4" } %>
+      <%= f.input :pithy_tag, :input_html => { :class => "span4" } %>
+      <%= f.input :description, :input_html => { :class => "span4" } %>
+    </div>
+
+    <div class="span4">
+      <%= f.input :requirements_points, :wrapper => :prepend, :label => false do %>
+        <%#= content_tag :span, "Requirements Points", :class => "add-on" %>
+        <%= f.input :requirements_points %>
+      <% end %>
+      <%= f.input :development_points, :wrapper => :prepend, :label => false do %>
+        <%#= content_tag :span, "Development Points", :class => "add-on" %>
+        <%= f.input :development_points %>
+      <% end %>
+
+      <%= f.association :board %>
+    </div>
+
+    <div class="span4 well">
+      <%= f.label :column_id, "Column" %>
+      <%= f.select :column_id, {}, {prompt: "Select a Column"} %>
+    </div>
+
+    <div class="span4 well">
+      <%= f.label :row_id, "Row" %>
+      <%= f.select :row_id, {}, {prompt: "Select a Row"} %>
+    </div>
   </div>
 
-  <div class="form-actions">
+  <div class="form-actions span8">
     <%= f.button :submit, class: 'btn-primary' %>
   </div>
 <% end %>

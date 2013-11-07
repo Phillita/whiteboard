@@ -1,7 +1,5 @@
 <%= f.input :label, :wrapper => :prepend, :label => false do %>
   <%= content_tag :span, "Title", :class => "add-on" %>
   <%= f.input_field :label %>
+  <%= f.link_to_remove raw("<i class=\"fa fa-minus-square\"></i>"), class: "btn btn-danger" %>
 <% end %>
-<div class="form-actions">
-	<%= f.link_to_remove "Remove Row", class: "btn btn-primary" %>
-</div>
