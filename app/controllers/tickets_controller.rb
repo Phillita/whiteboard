@@ -25,7 +25,8 @@ class TicketsController < ApplicationController
 
   # GET /tickets/new
   def new
-    @ticket = Ticket.new
+    @ticket = Ticket.new(board_id: params[:id]) if params.present?
+    @ticket ||= Ticket.new
   end
 
   # GET /tickets/1/edit

@@ -6,9 +6,9 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: development
-  username: root
-  password: phillita20!
+  database: whiteboard
+  username: rails
+  password: connectthis
   host: 127.0.0.1
   port: 3306
 
@@ -18,17 +18,17 @@ development:
 test:
   adapter: mysql2
   encoding: utf8
-  database: test
-  username: root
-  password: phillita20!
+  database: whiteboard_test
+  username: rails
+  password: connectthis
   host: 127.0.0.1
   port: 3306
 
 production:
   adapter: mysql2
   encoding: utf8
-  database: production
-  username: root
-  password: phillita20!
+  database: whiteboard_production
+  username: rails
+  password: connectthis
   #host: 127.0.0.1
   port: 3306

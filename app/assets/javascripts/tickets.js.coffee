@@ -7,16 +7,23 @@ jQuery ->
 @setup_ticket_form = ->
   if $("#tickets-form").length > 0
     if $('select#ticket_board_id').length > 0
+      load_cols_and_rows()
       $('select#ticket_board_id').change ->
-        board_id = $('option:selected',this).val()
-        $('select#ticket_column_id').empty()
-        $('select#ticket_row_id').empty()
+        load_cols_and_rows()
 
-        host = window.location.host
-        $.get "http://" + host + '/boards/' + board_id + '/columns.json', ( data ) ->
-          $('select#ticket_column_id').append('<option value="Select a Column">Select a Column</option>')
-          $('select#ticket_column_id').append('<option value="' + col.id + '">' + col.label + '</option>') for col in data
+@load_cols_and_rows = ->
+  board_id = $('option:selected',"#ticket_board_id").val()
+  if board_id == null
+    return
 
-        $.get "http://" + host + '/boards/' + board_id + '/rows.json', ( data ) ->
-          $('select#ticket_row_id').append('<option value="Select a Row">Select a Row</option>')
-          $('select#ticket_row_id').append('<option value="' + row.id + '">' + row.label + '</option>') for row in data
+  $('select#ticket_column_id').empty()
+  $('select#ticket_row_id').empty()
+
+  host = window.location.host
+  $.get "http://" + host + '/boards/' + board_id + '/columns.json', ( data ) ->
+    $('select#ticket_column_id').append('<option value="Select a Column">Select a Column</option>')
+    $('select#ticket_column_id').append('<option value="' + col.id + '">' + col.label + '</option>') for col in data
+
+  $.get "http://" + host + '/boards/' + board_id + '/rows.json', ( data ) ->
+    $('select#ticket_row_id').append('<option value="Select a Row">Select a Row</option>')
+    $('select#ticket_row_id').append('<option value="' + row.id + '">' + row.label + '</option>') for row in data
